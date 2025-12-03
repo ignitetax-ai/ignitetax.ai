@@ -85,33 +85,41 @@ const NavbarNew = () => {
     <nav
       className={`fixed w-full z-50 top-0 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg border-b border-blue-200/50 dark:border-cyan-500/30"
-          : "bg-white/60 dark:bg-gray-900/60 backdrop-blur-md border-b border-gray-200/30 dark:border-gray-700/30"
+          ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg shadow-sm border-b border-slate-200 dark:border-slate-800"
+          : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
-          <div className="flex items-center space-x-3 group">
+          <div className="flex items-center space-x-3">
             <a
               href="/"
-              className="flex items-center space-x-3 transition-transform duration-300 hover:scale-105"
+              className="flex items-center space-x-3 transition-transform duration-200 hover:scale-105"
               onClick={closeMenu}
               aria-label="IgniteTaxAI Home"
             >
-              <div className="relative w-12 h-12 rounded-lg overflow-hidden shadow-md group-hover:shadow-glow-blue transition-shadow duration-300">
+              <div className="relative w-10 h-10 rounded-lg overflow-hidden">
                 <Image
                   src="/logo/Ignite-Tax-Ai-4.png"
                   alt="IgniteTaxAI Logo"
-                  width={48}
-                  height={48}
+                  width={40}
+                  height={40}
                   className="object-contain"
                   priority
                 />
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500 bg-clip-text text-transparent hidden sm:block">
-                IgniteTaxAI
-              </h1>
+              <div className="hidden sm:block">
+                <h1 className="text-lg font-bold">
+                  <span className="text-slate-800 dark:text-slate-100">
+                    Ignite
+                  </span>
+                  <span className="text-[#2B7FFF]">Tax AI</span>
+                </h1>
+                <p className="text-xs text-slate-500 dark:text-slate-400 -mt-0.5">
+                  Philippine Tax Assistant
+                </p>
+              </div>
             </a>
           </div>
 
@@ -121,11 +129,10 @@ const NavbarNew = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative px-4 py-2 text-gray-700 dark:text-gray-200 font-medium text-sm uppercase tracking-wide transition-all duration-300 hover:text-blue-600 dark:hover:text-cyan-400 group"
+                className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
                 onClick={closeMenu}
               >
                 {link.label}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-cyan-400 dark:to-blue-500 transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
@@ -135,12 +142,12 @@ const NavbarNew = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
               aria-label="Toggle theme"
             >
               {isDarkMode ? (
                 <svg
-                  className="w-5 h-5 text-yellow-400"
+                  className="w-5 h-5 text-amber-400"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -154,7 +161,7 @@ const NavbarNew = () => {
                 </svg>
               ) : (
                 <svg
-                  className="w-5 h-5 text-gray-700"
+                  className="w-5 h-5 text-slate-700"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -173,7 +180,7 @@ const NavbarNew = () => {
             <div className="hidden md:flex items-center space-x-3">
               <a
                 href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
-                className="px-5 py-2 rounded-lg border-2 border-blue-600 dark:border-cyan-500 text-blue-600 dark:text-cyan-400 font-semibold text-sm uppercase tracking-wide hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-gray-900 transition-all duration-300 hover:shadow-glow-blue dark:hover:shadow-cyber"
+                className="btn-secondary text-sm"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -181,7 +188,7 @@ const NavbarNew = () => {
               </a>
               <a
                 href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
-                className="btn-cyber text-sm uppercase tracking-wide"
+                className="btn-primary text-sm"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -193,14 +200,14 @@ const NavbarNew = () => {
             <button
               ref={menuButtonRef}
               onClick={toggleMenu}
-              className="lg:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500"
+              className="lg:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
             >
               {isMenuOpen ? (
                 <svg
-                  className="w-6 h-6 text-gray-700 dark:text-gray-200"
+                  className="w-6 h-6 text-slate-700 dark:text-slate-200"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -214,7 +221,7 @@ const NavbarNew = () => {
                 </svg>
               ) : (
                 <svg
-                  className="w-6 h-6 text-gray-700 dark:text-gray-200"
+                  className="w-6 h-6 text-slate-700 dark:text-slate-200"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -242,14 +249,13 @@ const NavbarNew = () => {
         role="navigation"
         aria-label="Mobile navigation menu"
       >
-        <div className="px-4 pt-4 pb-6 space-y-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-t border-gray-200/50 dark:border-gray-700/50">
+        <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
           {navLinks.map((link, index) => (
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-gray-700 dark:text-gray-200 font-medium text-base uppercase tracking-wide rounded-lg hover:bg-blue-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-cyan-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500"
+              className="block px-4 py-3 text-slate-700 dark:text-slate-300 font-medium text-base rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2B7FFF] transition-all duration-200"
               onClick={closeMenu}
-              style={{ animationDelay: `${index * 50}ms` }}
               tabIndex={isMenuOpen ? 0 : -1}
             >
               {link.label}
@@ -262,7 +268,7 @@ const NavbarNew = () => {
               href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full px-5 py-3 rounded-lg border-2 border-blue-600 dark:border-cyan-500 text-blue-600 dark:text-cyan-400 font-semibold text-sm uppercase tracking-wide text-center hover:bg-blue-600 hover:text-white dark:hover:bg-cyan-500 dark:hover:text-gray-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500"
+              className="w-full btn-secondary text-sm text-center"
               onClick={closeMenu}
               tabIndex={isMenuOpen ? 0 : -1}
             >
@@ -272,7 +278,7 @@ const NavbarNew = () => {
               href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full btn-cyber text-sm uppercase tracking-wide text-center focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-cyan-500"
+              className="w-full btn-primary text-sm text-center"
               onClick={closeMenu}
               tabIndex={isMenuOpen ? 0 : -1}
             >
