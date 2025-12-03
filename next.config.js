@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-      domains: ['ignitetax.ai'],
+    remotePatterns: [
+      {
+        hostname: "ignitetax.ai",
+        protocol: "https",
+      },
+    ],
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
