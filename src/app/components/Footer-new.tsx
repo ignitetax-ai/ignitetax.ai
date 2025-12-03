@@ -138,7 +138,7 @@ const FooterNew = () => {
             {/* Brand Section */}
             <div className="lg:col-span-2 space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="relative w-10 h-10 rounded-lg overflow-hidden">
+                <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                   <Image
                     src="/logo/Ignite-Tax-Ai-4.png"
                     alt="IgniteTaxAI Logo"
@@ -169,7 +169,7 @@ const FooterNew = () => {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-[#2B7FFF] transition-all duration-200"
+                    className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-[#2B7FFF] transition-all duration-200"
                     aria-label={social.name}
                   >
                     {social.icon}

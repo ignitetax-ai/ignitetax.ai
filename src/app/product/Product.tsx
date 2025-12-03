@@ -32,7 +32,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-3.png"
                 alt="Tax Research"
@@ -53,7 +53,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-4.png"
                 alt="Automate Computations"
@@ -75,7 +75,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-5.png"
                 alt="Real-time Guidance"
@@ -97,7 +97,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-9.png"
                 alt="Client Communication"
@@ -119,7 +119,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-1.png"
                 alt="Compliance and Planning"
@@ -141,7 +141,7 @@ const Product: React.FC = () => {
               boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
             }}
           >
-            <div className="bg-blue-50 border border-blue-200 rounded-md p-3 mb-4 flex items-center justify-center">
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-3 mb-4 flex items-center justify-center">
               <img
                 src="/logo/icon-2.png"
                 alt="Document Management"

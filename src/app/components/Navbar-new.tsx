@@ -99,7 +99,7 @@ const NavbarNew = () => {
               onClick={closeMenu}
               aria-label="IgniteTaxAI Home"
             >
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                 <Image
                   src="/logo/Ignite-Tax-Ai-4.png"
                   alt="IgniteTaxAI Logo"
@@ -129,7 +129,7 @@ const NavbarNew = () => {
               <a
                 key={link.href}
                 href={link.href}
-                className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
+                className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800"
                 onClick={closeMenu}
               >
                 {link.label}
@@ -142,7 +142,7 @@ const NavbarNew = () => {
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
+              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
               aria-label="Toggle theme"
             >
               {isDarkMode ? (
@@ -200,7 +200,7 @@ const NavbarNew = () => {
             <button
               ref={menuButtonRef}
               onClick={toggleMenu}
-              className="lg:hidden p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
+              className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
               aria-label="Toggle menu"
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
@@ -254,7 +254,7 @@ const NavbarNew = () => {
             <a
               key={link.href}
               href={link.href}
-              className="block px-4 py-3 text-slate-700 dark:text-slate-300 font-medium text-base rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2B7FFF] transition-all duration-200"
+              className="block px-4 py-3 text-slate-700 dark:text-slate-300 font-medium text-base rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2B7FFF] transition-all duration-200"
               onClick={closeMenu}
               tabIndex={isMenuOpen ? 0 : -1}
             >

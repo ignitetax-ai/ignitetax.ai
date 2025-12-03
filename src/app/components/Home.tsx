@@ -32,7 +32,7 @@ const Home = () => {
           <p className="mb-8 leading-relaxed sm:text-2xl text-gray-600 text-center font-medium max-w-3xl">
             AI Tax Assistant for Tax Professionals and Businesses
           </p>
-          <button className="px-8 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl">
+          <button className="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors duration-200 shadow-lg hover:shadow-xl">
             Get Started
           </button>
         </div>

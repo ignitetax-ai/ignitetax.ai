@@ -64,7 +64,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <a
               href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
-              className="px-6 py-2 rounded-lg border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition font-semibold"
+              className="px-6 py-2 rounded-xl border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition font-semibold"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -72,7 +72,7 @@ const Navbar = () => {
             </a>
             <a
               href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
-              className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-semibold"
+              className="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-semibold"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -82,7 +82,7 @@ const Navbar = () => {
           {/* Hamburger for mobile */}
           <div className="md:hidden ml-auto">
             <button
-              className="inline-flex p-3 rounded-md text-blue-600 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
+              className="inline-flex p-3 rounded-xl text-blue-600 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-600"
               onClick={toggleNavbar}
             >
               {isClick ? (
@@ -156,7 +156,7 @@ const Navbar = () => {
                 href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition font-semibold text-center"
+                className="px-6 py-2 rounded-xl border-2 border-blue-600 text-blue-600 bg-transparent hover:bg-blue-600 hover:text-white transition font-semibold text-center"
                 onClick={closeNavbar}
               >
                 SIGN IN
@@ -165,7 +165,7 @@ const Navbar = () => {
                 href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-semibold text-center"
+                className="px-6 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition font-semibold text-center"
                 onClick={closeNavbar}
               >
                 SIGN UP

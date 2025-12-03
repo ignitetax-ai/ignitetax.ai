@@ -88,7 +88,7 @@ const AboutUsNew = () => {
             {cards.map((card, index) => (
               <div
                 key={card.title}
-                className={`transition-all duration-700 ${
+                className={`transition-all duration-700 rounded-xl ${
                   isVisible && mounted
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-10"

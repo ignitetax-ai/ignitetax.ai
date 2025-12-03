@@ -138,7 +138,7 @@ const HomeNew = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
         <a
           href="#about_us"
           className="flex flex-col items-center space-y-2 text-slate-500 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-300"
