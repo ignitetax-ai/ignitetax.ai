@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import NavbarNew from "./components/Navbar-new";
+import FooterNew from "./components/Footer-new";
 
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "IgniteTaxAI",
-  description: "IgniteTaxAI ",
+  description: "AI Tax Assistant for Tax Professionals and Businesses",
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
 };
 
@@ -19,15 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div>
-          <Navbar />
-          <main className="relative overflow-hidden">{children}</main>
-          <Footer />
-        </div>
+    <html lang="en" suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
+        <a href="#main-content" className="skip-to-main">
+          Skip to main content
+        </a>
+        <NavbarNew />
+        <main id="main-content" className="relative overflow-hidden pt-20">
+          {children}
+        </main>
+        <FooterNew />
       </body>
     </html>
   );
 }
-

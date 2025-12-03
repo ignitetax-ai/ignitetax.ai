@@ -1,24 +1,25 @@
-import AboutUs from "./about/AboutUs";
-import Home from "./components/Home";
-import Product from "./product/Product";
-import Resources from "./resources/Resoruces";
+"use client";
 
+import AboutUsNew from "./about/AboutUs-new";
+import HomeNew from "./components/Home-new";
+import ProductNew from "./product/Product-new";
+import ResourcesNew from "./resources/Resources-new";
 
 export default function Hero() {
   return (
     <>
       <div id="home">
-        <Home />
+        <HomeNew />
       </div>
       <div id="about_us">
-        <AboutUs />
+        <AboutUsNew />
       </div>
       <div id="product">
-        <Product />
+        <ProductNew />
       </div>
       <div id="resources">
-        <Resources />
+        <ResourcesNew />
       </div>
     </>
-  )
+  );
 }
