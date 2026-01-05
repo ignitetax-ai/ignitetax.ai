@@ -116,7 +116,7 @@ const Navbar = () => {
                   priority
                 />
               </div>
-              <div className="hidden sm:block">
+              <div>
                 <h1 className="text-lg font-bold">
                   <span className="text-slate-800 dark:text-slate-100">
                     Ignite
