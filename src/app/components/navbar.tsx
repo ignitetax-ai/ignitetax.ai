@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const NAV_LINKS = [
   { href: "/#about_us", label: "About" },
@@ -98,7 +99,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
-            <a
+            <Link
               href="/"
               className="flex items-center space-x-3 transition-transform duration-200 hover:scale-105"
               onClick={closeMenu}
@@ -125,20 +126,20 @@ const Navbar = () => {
                   Philippine Tax Co-Pilot
                 </p>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800"
                 onClick={closeMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
