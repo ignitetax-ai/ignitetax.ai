@@ -1,8 +1,18 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 
-const NavbarNew = () => {
+const NAV_LINKS = [
+  { href: "/#about_us", label: "About" },
+  { href: "/#product", label: "Product" },
+  { href: "/#resources", label: "Resources" },
+] as const;
+
+const APP_URL =
+  "https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/&app_id=6856685cef268de0b398ec5f";
+
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -10,7 +20,7 @@ const NavbarNew = () => {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
+    // Check for saved theme preference or system preference
     const savedTheme = localStorage.getItem("theme");
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
@@ -53,7 +63,7 @@ const NavbarNew = () => {
     };
   }, [isMenuOpen]);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newMode = !isDarkMode;
     setIsDarkMode(newMode);
 
@@ -64,22 +74,15 @@ const NavbarNew = () => {
       document.documentElement.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
-  };
+  }, [isDarkMode]);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev);
+  }, []);
 
-  const closeMenu = () => {
+  const closeMenu = useCallback(() => {
     setIsMenuOpen(false);
-  };
-
-  const navLinks = [
-    { href: "#home", label: "Home" },
-    { href: "#about_us", label: "About" },
-    { href: "#product", label: "Product" },
-    { href: "#resources", label: "Resources" },
-  ];
+  }, []);
 
   return (
     <nav
@@ -88,6 +91,8 @@ const NavbarNew = () => {
           ? "bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg shadow-sm border-b border-slate-200 dark:border-slate-800"
           : "bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/50"
       }`}
+      role="navigation"
+      aria-label="Main navigation"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
@@ -102,7 +107,7 @@ const NavbarNew = () => {
               <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                 <Image
                   src="/logo/Ignite-Tax-Ai-4.png"
-                  alt="IgniteTaxAI Logo"
+                  alt=""
                   width={40}
                   height={40}
                   className="object-contain"
@@ -117,7 +122,7 @@ const NavbarNew = () => {
                   <span className="text-[#2B7FFF]">Tax AI</span>
                 </h1>
                 <p className="text-xs text-slate-500 dark:text-slate-400 -mt-0.5">
-                  Philippine Tax Assistant
+                  Philippine Tax Co-Pilot
                 </p>
               </div>
             </a>
@@ -125,7 +130,7 @@ const NavbarNew = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -143,7 +148,9 @@ const NavbarNew = () => {
             <button
               onClick={toggleTheme}
               className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
-              aria-label="Toggle theme"
+              aria-label={
+                isDarkMode ? "Switch to light mode" : "Switch to dark mode"
+              }
             >
               {isDarkMode ? (
                 <svg
@@ -151,6 +158,7 @@ const NavbarNew = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -165,6 +173,7 @@ const NavbarNew = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -179,7 +188,7 @@ const NavbarNew = () => {
             {/* Desktop Auth Buttons */}
             <div className="hidden md:flex items-center space-x-3">
               <a
-                href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
+                href={APP_URL}
                 className="btn-secondary text-sm"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -187,7 +196,7 @@ const NavbarNew = () => {
                 Sign In
               </a>
               <a
-                href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
+                href={APP_URL}
                 className="btn-primary text-sm"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -201,7 +210,7 @@ const NavbarNew = () => {
               ref={menuButtonRef}
               onClick={toggleMenu}
               className="lg:hidden p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-200"
-              aria-label="Toggle menu"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
             >
@@ -211,6 +220,7 @@ const NavbarNew = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -225,6 +235,7 @@ const NavbarNew = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -246,11 +257,10 @@ const NavbarNew = () => {
         className={`lg:hidden transition-all duration-300 ease-in-out overflow-hidden ${
           isMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
         }`}
-        role="navigation"
         aria-label="Mobile navigation menu"
       >
         <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
-          {navLinks.map((link, index) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -265,7 +275,7 @@ const NavbarNew = () => {
           {/* Mobile Auth Buttons */}
           <div className="flex flex-col space-y-3 pt-4">
             <a
-              href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
+              href={APP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full btn-secondary text-sm text-center"
@@ -275,7 +285,7 @@ const NavbarNew = () => {
               Sign In
             </a>
             <a
-              href="https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/?fbclid=IwY2xjawLFrn1leHRuA2FlbQIxMABicmlkETFwUGtEQTg4ODNneGxmZ25YAR59fEuWqOkGaKjxJJxi_3tQzbpsqbKzqu2sMwuoxnYdeCAKh_cC7v2hAMJCLg_aem_lwuzbSe-zbWyVLFPt8p6jg&app_id=6856685cef268de0b398ec5f"
+              href={APP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full btn-primary text-sm text-center"
@@ -291,4 +301,4 @@ const NavbarNew = () => {
   );
 };
 
-export default NavbarNew;
+export default Navbar;
