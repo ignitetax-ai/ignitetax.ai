@@ -52,9 +52,9 @@ const Home = () => {
             style={{ transitionDelay: "0ms" }}
           >
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6">
-              <div className="relative w-full h-full bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-md border border-slate-200 dark:border-slate-700">
+              <div className="relative w-full h-full  rounded-2xl p-4">
                 <Image
-                  src="/logo/Ignite-Tax-Ai-4.png"
+                  src="/logo/logo.png"
                   alt="IgniteTaxAI Logo"
                   fill
                   className="object-contain p-2"

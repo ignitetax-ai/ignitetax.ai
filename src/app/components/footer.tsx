@@ -127,7 +127,7 @@ const Footer = () => {
               >
                 <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                   <Image
-                    src="/logo/Ignite-Tax-Ai-4.png"
+                    src="/logo/logo.png"
                     alt=""
                     width={40}
                     height={40}
