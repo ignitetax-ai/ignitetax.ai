@@ -7,6 +7,7 @@ import {
   CheckIcon,
   EnvelopeSimpleIcon,
 } from "@phosphor-icons/react";
+import Link from "next/link";
 
 const FOOTER_LINKS = [
   {
@@ -179,12 +180,12 @@ const Footer = () => {
                 <ul className="space-y-2" role="list">
                   {section.links.map((link) => (
                     <li key={link.label}>
-                      <a
+                      <Link
                         href={link.href}
                         className="text-sm text-slate-600 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-200"
                       >
                         {link.label}
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>

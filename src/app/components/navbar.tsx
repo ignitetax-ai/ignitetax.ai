@@ -3,11 +3,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { SunIcon, MoonIcon, ListIcon, XIcon } from "@phosphor-icons/react";
+import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#about_us", label: "About" },
-  { href: "#product", label: "Product" },
-  { href: "#resources", label: "Resources" },
+  { href: "/#about_us", label: "About" },
+  { href: "/#product", label: "Product" },
+  { href: "/#resources", label: "Resources" },
 ] as const;
 
 const APP_URL =
@@ -99,7 +100,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
-            <a
+            <Link
               href="/"
               className="flex items-center space-x-3 transition-transform duration-200 hover:scale-105"
               onClick={closeMenu}
@@ -126,20 +127,20 @@ const Navbar = () => {
                   Philippine Tax Co-Pilot
                 </p>
               </div>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
                 className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800"
                 onClick={closeMenu}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -230,7 +231,7 @@ const Navbar = () => {
       >
         <div className="px-4 pt-4 pb-6 space-y-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
               className="block px-4 py-3 text-slate-700 dark:text-slate-300 font-medium text-base rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-[#2B7FFF] transition-all duration-200"
@@ -238,7 +239,7 @@ const Navbar = () => {
               tabIndex={isMenuOpen ? 0 : -1}
             >
               {link.label}
-            </a>
+            </Link>
           ))}
 
           {/* Mobile Auth Buttons */}
