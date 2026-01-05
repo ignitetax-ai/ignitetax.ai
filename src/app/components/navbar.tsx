@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { SunIcon, MoonIcon, ListIcon, XIcon } from "@phosphor-icons/react";
 
 const NAV_LINKS = [
-  { href: "/#about_us", label: "About" },
-  { href: "/#product", label: "Product" },
-  { href: "/#resources", label: "Resources" },
+  { href: "#about_us", label: "About" },
+  { href: "#product", label: "Product" },
+  { href: "#resources", label: "Resources" },
 ] as const;
 
 const APP_URL =
@@ -99,7 +99,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-3">
-            <Link
+            <a
               href="/"
               className="flex items-center space-x-3 transition-transform duration-200 hover:scale-105"
               onClick={closeMenu}
@@ -126,20 +126,20 @@ const Navbar = () => {
                   Philippine Tax Co-Pilot
                 </p>
               </div>
-            </Link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {NAV_LINKS.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
                 className="px-4 py-2 text-slate-700 dark:text-slate-300 font-medium text-sm transition-colors duration-200 hover:text-[#2B7FFF] dark:hover:text-[#2B7FFF] rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800"
                 onClick={closeMenu}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </div>
 
@@ -154,35 +154,19 @@ const Navbar = () => {
               }
             >
               {isDarkMode ? (
-                <svg
-                  className="w-5 h-5 text-amber-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <SunIcon
+                  size={20}
+                  weight="duotone"
+                  className="text-amber-400"
                   aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  />
-                </svg>
+                />
               ) : (
-                <svg
-                  className="w-5 h-5 text-slate-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <MoonIcon
+                  size={20}
+                  weight="duotone"
+                  className="text-slate-700"
                   aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  />
-                </svg>
+                />
               )}
             </button>
 
@@ -216,35 +200,19 @@ const Navbar = () => {
               aria-controls="mobile-menu"
             >
               {isMenuOpen ? (
-                <svg
-                  className="w-6 h-6 text-slate-700 dark:text-slate-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <XIcon
+                  size={24}
+                  weight="bold"
+                  className="text-slate-700 dark:text-slate-200"
                   aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
+                />
               ) : (
-                <svg
-                  className="w-6 h-6 text-slate-700 dark:text-slate-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <ListIcon
+                  size={24}
+                  weight="bold"
+                  className="text-slate-700 dark:text-slate-200"
                   aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
+                />
               )}
             </button>
           </div>

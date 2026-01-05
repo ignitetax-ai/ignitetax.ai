@@ -2,17 +2,29 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { FeaturePill, HighlightedText } from "./ui";
+import { FeaturePill } from "./ui";
+import {
+  LightningIcon,
+  ShieldCheckIcon,
+  RobotIcon,
+  BooksIcon,
+  ArrowRightIcon,
+  CaretDownIcon,
+} from "@phosphor-icons/react";
 
 const FEATURE_PILLS = [
-  { emoji: "⚡", text: "10x Productivity" },
-  { emoji: "🔒", text: "Secure & Compliant" },
-  { emoji: "🤖", text: "AI-Powered" },
-  { emoji: "📚", text: "Vetted Sources" },
+  { icon: LightningIcon, text: "10x Productivity" },
+  { icon: ShieldCheckIcon, text: "Secure & Compliant" },
+  { icon: RobotIcon, text: "AI-Powered" },
+  { icon: BooksIcon, text: "Vetted Sources" },
 ] as const;
 
 const APP_URL =
   "https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/&app_id=6856685cef268de0b398ec5f";
+
+const HighlightedText = ({ children }: { children: React.ReactNode }) => (
+  <span className="text-[#2B7FFF] font-semibold">{children}</span>
+);
 
 const Home = () => {
   const [mounted, setMounted] = useState(false);
@@ -107,20 +119,7 @@ const Home = () => {
               className="btn-primary flex items-center justify-center space-x-2 min-w-[160px]"
             >
               <span>Get Started</span>
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
+              <ArrowRightIcon size={20} weight="bold" aria-hidden="true" />
             </a>
             <a
               href="#about_us"
@@ -138,7 +137,7 @@ const Home = () => {
             {FEATURE_PILLS.map((feature, index) => (
               <FeaturePill
                 key={index}
-                emoji={feature.emoji}
+                icon={feature.icon}
                 text={feature.text}
               />
             ))}
@@ -156,20 +155,7 @@ const Home = () => {
           <span className="text-xs sm:text-sm font-medium uppercase tracking-wider">
             Scroll
           </span>
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+          <CaretDownIcon size={20} weight="bold" aria-hidden="true" />
         </a>
       </div>
     </section>

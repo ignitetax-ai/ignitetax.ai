@@ -1,33 +1,39 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { SectionHeader, FeatureCard, StatCard } from "../components/ui";
 import {
-  SectionHeader,
-  FeatureCard,
-  StatCard,
-  HighlightedText,
-} from "../components/ui";
+  TargetIcon,
+  RocketIcon,
+  RobotIcon,
+  LightningIcon,
+  ChartLineUpIcon,
+} from "@phosphor-icons/react";
 
 const MISSION_VISION_CARDS = [
   {
     title: "Mission",
     content:
       "To simplify tax compliance and enhance productivity through cutting-edge AI-driven solutions.",
-    emoji: "🎯",
+    icon: TargetIcon,
   },
   {
     title: "Vision",
     content:
       "To become the leading AI-powered platform transforming tax management by making compliance effortless, accurate, and efficient.",
-    emoji: "🚀",
+    icon: RocketIcon,
   },
 ] as const;
 
 const STATS = [
-  { label: "AI-Powered", value: "100%", emoji: "🤖" },
-  { label: "Reduce Research Time", value: "99%", emoji: "⚡" },
-  { label: "Productivity Boost", value: "10x", emoji: "📈" },
+  { label: "AI-Powered", value: "100%", icon: RobotIcon },
+  { label: "Reduce Research Time", value: "99%", icon: LightningIcon },
+  { label: "Productivity Boost", value: "10x", icon: ChartLineUpIcon },
 ] as const;
+
+const HighlightedText = ({ children }: { children: React.ReactNode }) => (
+  <span className="text-[#2B7FFF] font-semibold">{children}</span>
+);
 
 const AboutUs = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -107,7 +113,7 @@ const AboutUs = () => {
                 <FeatureCard
                   title={card.title}
                   description={card.content}
-                  emoji={card.emoji}
+                  icon={card.icon}
                   className="p-8"
                 />
               </div>
@@ -126,7 +132,7 @@ const AboutUs = () => {
                 <StatCard
                   value={stat.value}
                   label={stat.label}
-                  emoji={stat.emoji}
+                  icon={stat.icon}
                 />
               </div>
             ))}

@@ -1,9 +1,11 @@
 "use client";
 
+import { ElementType } from "react";
+
 interface StatCardProps {
   value: string;
   label: string;
-  emoji?: string;
+  icon?: ElementType;
   delay?: number;
   className?: string;
 }
@@ -11,7 +13,7 @@ interface StatCardProps {
 const StatCard = ({
   value,
   label,
-  emoji,
+  icon: Icon,
   delay = 0,
   className = "",
 }: StatCardProps) => {
@@ -20,9 +22,14 @@ const StatCard = ({
       className={`card text-center p-6 hover:shadow-md transition-all duration-300 ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      {emoji && (
-        <div className="text-3xl mb-3" aria-hidden="true">
-          {emoji}
+      {Icon && (
+        <div className="flex justify-center mb-3">
+          <Icon
+            size={32}
+            weight="duotone"
+            className="text-[#2B7FFF]"
+            aria-hidden="true"
+          />
         </div>
       )}
       <div className="text-3xl sm:text-4xl font-bold text-[#2B7FFF] mb-2">

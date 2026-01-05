@@ -1,29 +1,36 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
+import { useEffect, useState, useRef, ElementType } from "react";
 import { SectionHeader, FeatureCard } from "../components/ui";
+import {
+  NewspaperIcon,
+  ArticleIcon,
+  VideoIcon,
+  QuotesIcon,
+  UserIcon,
+  EnvelopeSimpleIcon,
+} from "@phosphor-icons/react";
 
-const RESOURCES = [
+const RESOURCES: { icon: ElementType; title: string; description: string }[] = [
   {
-    emoji: "📰",
+    icon: NewspaperIcon,
     title: "Tax Updates",
     description:
       "Stay current with the latest BIR rulings, tax circulars, and regulatory changes.",
   },
   {
-    emoji: "📝",
+    icon: ArticleIcon,
     title: "Blog",
     description:
       "Insightful articles and expert analyses on Philippine tax trends, best practices, and AI applications in tax management.",
   },
   {
-    emoji: "🎓",
+    icon: VideoIcon,
     title: "Webinars",
     description:
       "Exclusive sessions with industry experts discussing strategic tax management and leveraging technology.",
   },
-] as const;
+];
 
 const TESTIMONIALS = [
   {
@@ -31,28 +38,24 @@ const TESTIMONIALS = [
       "IgniteTaxAI has transformed how I handle tax research. What used to take hours now takes minutes.",
     author: "Maria Santos",
     role: "Tax Professional",
-    avatar: "👩‍💼",
   },
   {
     quote:
       "As a freelancer, understanding tax compliance was overwhelming. IgniteTaxAI makes it simple and accessible.",
     author: "Juan Dela Cruz",
     role: "Freelance Developer",
-    avatar: "👨‍💻",
   },
   {
     quote:
       "The AI-powered learning hub has been invaluable for teaching my students about Philippine tax laws.",
     author: "Dr. Ana Reyes",
     role: "Tax Educator",
-    avatar: "👩‍🏫",
   },
 ] as const;
 
 const FEATURED_IN = [
   {
     name: "BitPinas",
-    logo: "/logo/bitpinas-logo.png",
   },
 ] as const;
 
@@ -87,7 +90,7 @@ const Resources = () => {
     };
   }, []);
 
-  const getAnimationClass = (delay: number = 0) =>
+  const getAnimationClass = () =>
     `transition-all duration-700 ${
       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     }`;
@@ -127,7 +130,7 @@ const Resources = () => {
 
           {/* Resource Cards */}
           <div
-            className={`w-full grid grid-cols-1 md:grid-cols-3 gap-6 ${getAnimationClass(100)}`}
+            className={`w-full grid grid-cols-1 md:grid-cols-3 gap-6 ${getAnimationClass()}`}
             style={{ transitionDelay: "100ms" }}
             role="list"
             aria-label="Resource types"
@@ -137,7 +140,7 @@ const Resources = () => {
                 <FeatureCard
                   title={resource.title}
                   description={resource.description}
-                  emoji={resource.emoji}
+                  icon={resource.icon}
                 />
               </div>
             ))}
@@ -145,7 +148,7 @@ const Resources = () => {
 
           {/* Testimonials Section */}
           <div
-            className={`w-full ${getAnimationClass(200)}`}
+            className={`w-full ${getAnimationClass()}`}
             style={{ transitionDelay: "200ms" }}
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-4">
@@ -171,22 +174,26 @@ const Resources = () => {
                   className="card p-6 flex flex-col"
                 >
                   <div className="flex-grow">
-                    <div
-                      className="text-4xl mb-4 text-[#2B7FFF]"
-                      aria-hidden="true"
-                    >
-                      "
+                    <div className="flex justify-center mb-4">
+                      <QuotesIcon
+                        size={32}
+                        weight="duotone"
+                        className="text-[#2B7FFF]"
+                        aria-hidden="true"
+                      />
                     </div>
-                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4">
+                    <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-4 text-center">
                       {testimonial.quote}
                     </p>
                   </div>
-                  <div className="flex items-center space-x-3 pt-4 border-t border-slate-200 dark:border-slate-700">
-                    <div
-                      className="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-700 flex items-center justify-center text-xl"
-                      aria-hidden="true"
-                    >
-                      {testimonial.avatar}
+                  <div className="flex items-center justify-center space-x-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                    <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-700 flex items-center justify-center">
+                      <UserIcon
+                        size={20}
+                        weight="duotone"
+                        className="text-[#2B7FFF]"
+                        aria-hidden="true"
+                      />
                     </div>
                     <div>
                       <p className="font-semibold text-slate-800 dark:text-slate-100 text-sm">
@@ -204,7 +211,7 @@ const Resources = () => {
 
           {/* As Seen In Section */}
           <div
-            className={`w-full text-center ${getAnimationClass(300)}`}
+            className={`w-full text-center ${getAnimationClass()}`}
             style={{ transitionDelay: "300ms" }}
           >
             <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-6">
@@ -226,10 +233,18 @@ const Resources = () => {
 
           {/* Newsletter Section */}
           <div
-            className={`w-full max-w-2xl ${getAnimationClass(400)}`}
+            className={`w-full max-w-2xl ${getAnimationClass()}`}
             style={{ transitionDelay: "400ms" }}
           >
             <div className="card-hover p-8 text-center">
+              <div className="flex justify-center mb-4">
+                <EnvelopeSimpleIcon
+                  size={40}
+                  weight="duotone"
+                  className="text-[#2B7FFF]"
+                  aria-hidden="true"
+                />
+              </div>
               <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2">
                 Subscribe to our{" "}
                 <span className="text-[#2B7FFF]">Newsletter</span>

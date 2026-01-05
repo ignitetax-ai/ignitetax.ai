@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import {
+  CalendarBlankIcon,
+  CheckIcon,
+  EnvelopeSimpleIcon,
+} from "@phosphor-icons/react";
 
 const FOOTER_LINKS = [
   {
@@ -76,19 +80,11 @@ const Footer = () => {
                         className="flex-shrink-0 w-5 h-5 rounded-full bg-[#2B7FFF] flex items-center justify-center mt-0.5"
                         aria-hidden="true"
                       >
-                        <svg
-                          className="w-3 h-3 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={3}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
+                        <CheckIcon
+                          size={12}
+                          weight="bold"
+                          className="text-white"
+                        />
                       </div>
                       <span className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
                         {item}
@@ -104,20 +100,11 @@ const Footer = () => {
                   href="mailto:ignitetaxai@gmail.com?subject=Demo%20Request%20for%20IgniteTaxAI"
                   className="btn-primary px-8 py-4 text-base sm:text-lg inline-flex items-center space-x-3"
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                  <CalendarBlankIcon
+                    size={20}
+                    weight="duotone"
                     aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
+                  />
                   <span>Request a Demo</span>
                 </a>
               </div>
@@ -170,14 +157,11 @@ const Footer = () => {
                   className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-[#2B7FFF] transition-all duration-200"
                   aria-label="Email us"
                 >
-                  <svg
-                    className="w-5 h-5"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
+                  <EnvelopeSimpleIcon
+                    size={20}
+                    weight="duotone"
                     aria-hidden="true"
-                  >
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-                  </svg>
+                  />
                 </a>
               </div>
             </div>
@@ -195,12 +179,12 @@ const Footer = () => {
                 <ul className="space-y-2" role="list">
                   {section.links.map((link) => (
                     <li key={link.label}>
-                      <Link
+                      <a
                         href={link.href}
                         className="text-sm text-slate-600 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-200"
                       >
                         {link.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>

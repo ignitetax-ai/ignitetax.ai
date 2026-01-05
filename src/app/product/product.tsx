@@ -1,98 +1,114 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import Image from "next/image";
-import { SectionHeader, FeatureCard, HighlightedText } from "../components/ui";
+import { useEffect, useState, useRef, ElementType } from "react";
+import { SectionHeader, FeatureCard } from "../components/ui";
+import {
+  RobotIcon,
+  FileMagnifyingGlassIcon,
+  PencilLineIcon,
+  UserGearIcon,
+  GraduationCapIcon,
+  BookBookmarkIcon,
+  CheckCircleIcon,
+  BooksIcon,
+  EnvelopeSimpleIcon,
+  PuzzlePieceIcon,
+  TimerIcon,
+  TargetIcon,
+  ShieldCheckIcon,
+  FileTextIcon,
+  ArrowRightIcon,
+} from "@phosphor-icons/react";
 
 const PRODUCTS = [
   {
     title: "AI Co-Pilot",
     description:
       "Supercharge your tax workflows and drive productivity by 10x with our Tax AI co-pilot. Get instant, accurate answers to complex tax questions.",
-    icon: "/logo/icon-3.png",
+    icon: RobotIcon,
   },
   {
     title: "Document Analysis",
     description:
       "Securely upload and analyze various tax documents or forms with AI-driven insights for faster decision-making.",
-    icon: "/logo/icon-2.png",
+    icon: FileMagnifyingGlassIcon,
   },
   {
     title: "Draft Communication",
     description:
       "Generate polished and professional replies to standard BIR correspondence in seconds.",
-    icon: "/logo/icon-9.png",
+    icon: PencilLineIcon,
   },
   {
     title: "Agent Andy",
     description:
       "Automate expert-level reviews of various tax forms or documents with our intelligent AI agent.",
-    icon: "/logo/icon-4.png",
+    icon: UserGearIcon,
   },
   {
     title: "AI-Powered Tax Learning Hub",
     description:
       "Solve complex tax problems while delivering clear and easy to understand explanations of tax laws and regulations.",
-    icon: "/logo/icon-5.png",
+    icon: GraduationCapIcon,
   },
   {
     title: "Vetted Sources",
     description:
       "Rely on trusted and verified references from tax laws, regulations and memorandums for accurate compliance.",
-    icon: "/logo/icon-1.png",
+    icon: BookBookmarkIcon,
   },
 ] as const;
 
-const FEATURES = [
+const FEATURES: { icon: ElementType; title: string; description: string }[] = [
   {
-    emoji: "✓",
+    icon: CheckCircleIcon,
     title: "Accurate Answers",
     description:
       "Bid farewell to generic tax advice. Deliver accurate and reliable up to date answers to even the most complex tax queries.",
   },
   {
-    emoji: "📚",
+    icon: BooksIcon,
     title: "Vetted Sources",
     description:
       "Rely on trusted and verified references from tax laws, regulations and memorandums.",
   },
   {
-    emoji: "✉️",
+    icon: EnvelopeSimpleIcon,
     title: "Draft Communications",
     description:
       "Effortlessly generate polished and professional replies to BIR notices.",
   },
   {
-    emoji: "🧩",
+    icon: PuzzlePieceIcon,
     title: "Solve Complex Problems",
     description:
       "Tackle challenging tax scenarios with step-by-step AI guidance, ideal for educators and students alike.",
   },
   {
-    emoji: "⏱️",
+    icon: TimerIcon,
     title: "Saves Time",
     description:
       "Eliminate endless internet searches and outdated resources. IgniteTaxAI delivers instant and accurate answers.",
   },
   {
-    emoji: "🎯",
+    icon: TargetIcon,
     title: "Tailored Responses",
     description:
       "Receive customized and context-aware solutions that adapt to your unique tax compliance needs.",
   },
   {
-    emoji: "🔒",
+    icon: ShieldCheckIcon,
     title: "Secure & Confidential",
     description:
       "Protect your sensitive data with robust encryption and privacy measures, ensuring complete confidentiality.",
   },
   {
-    emoji: "📄",
+    icon: FileTextIcon,
     title: "Analyze Documents",
     description:
       "Securely upload and analyze tax forms or documents for deep AI-driven insights.",
   },
-] as const;
+];
 
 const APP_URL =
   "https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/&app_id=6856685cef268de0b398ec5f";
@@ -123,7 +139,7 @@ const Product = () => {
     };
   }, []);
 
-  const getAnimationClass = (delay: number = 0) =>
+  const getAnimationClass = () =>
     `transition-all duration-700 ${
       isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     }`;
@@ -157,7 +173,8 @@ const Product = () => {
 
           {/* Products Grid */}
           <div
-            className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className={`w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${getAnimationClass()}`}
+            style={{ transitionDelay: "100ms" }}
             role="list"
             aria-label="Products"
           >
@@ -165,7 +182,6 @@ const Product = () => {
               <div
                 key={index}
                 role="listitem"
-                className={getAnimationClass((index + 1) * 100)}
                 style={{ transitionDelay: `${(index + 1) * 100}ms` }}
               >
                 <FeatureCard
@@ -179,7 +195,7 @@ const Product = () => {
 
           {/* Features Section */}
           <div
-            className={`w-full pt-8 ${getAnimationClass(700)}`}
+            className={`w-full pt-8 ${getAnimationClass()}`}
             style={{ transitionDelay: "700ms" }}
           >
             <h3 className="text-2xl sm:text-3xl font-bold text-center text-slate-800 dark:text-slate-100 mb-8">
@@ -191,34 +207,39 @@ const Product = () => {
               role="list"
               aria-label="Features"
             >
-              {FEATURES.map((feature, index) => (
-                <div
-                  key={index}
-                  role="listitem"
-                  className="card p-5 text-center hover:shadow-md transition-all duration-300"
-                >
+              {FEATURES.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
                   <div
-                    className="text-2xl mb-3 flex justify-center"
-                    aria-hidden="true"
+                    key={index}
+                    role="listitem"
+                    className="card p-5 text-center hover:shadow-md transition-all duration-300"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-700/50 flex items-center justify-center">
-                      {feature.emoji}
+                    <div className="flex justify-center mb-3">
+                      <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-slate-700/50 flex items-center justify-center">
+                        <Icon
+                          size={24}
+                          weight="duotone"
+                          className="text-[#2B7FFF]"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
+                    <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">
+                      {feature.title}
+                    </h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-slate-100 mb-2">
-                    {feature.title}
-                  </h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {/* Bottom CTA */}
           <div
-            className={`${getAnimationClass(800)}`}
+            className={getAnimationClass()}
             style={{ transitionDelay: "800ms" }}
           >
             <div className="card p-8 text-center max-w-3xl">
@@ -233,20 +254,7 @@ const Product = () => {
                 className="btn-primary inline-flex items-center space-x-2"
               >
                 <span>Try IgniteTaxAI Now</span>
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
+                <ArrowRightIcon size={20} weight="bold" aria-hidden="true" />
               </a>
             </div>
           </div>
