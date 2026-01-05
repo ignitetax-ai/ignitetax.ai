@@ -23,7 +23,7 @@ const PRODUCTS = [
   {
     title: "AI Co-Pilot",
     description:
-      "Supercharge your tax workflows and drive productivity by 10x with our Tax AI co-pilot. Get instant, accurate answers to complex tax questions.",
+      "Reduce tax research by 99% with your personalized AI tax assistant. Get instant, and accurate answers to complex tax questions, draft polished tax memos, solve complex tax problems with ease and analyze various tax forms with deep insights",
     icon: RobotIcon,
     highlight: true,
   },
@@ -156,12 +156,14 @@ const Product = () => {
                   />
                 </div>
                 <h3 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-                  AI Co-Pilot
+                  AI Tax Co-Pilot
                 </h3>
                 <p className="text-white/80 text-lg mb-8 max-w-lg">
-                  Supercharge your tax workflows and drive productivity by 10x
-                  with our Tax AI co-pilot. Get instant, accurate answers to
-                  complex tax questions.
+                  Reduce tax research by 99% with your personalized AI tax
+                  assistant. Get instant, and accurate answers to complex tax
+                  questions, draft polished tax memos, solve complex tax
+                  problems with ease and analyze various tax forms with deep
+                  insights
                 </p>
                 <div className="mt-auto">
                   <a
