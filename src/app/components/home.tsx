@@ -20,7 +20,7 @@ const FEATURE_PILLS = [
 ] as const;
 
 const APP_URL =
-  "https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/&app_id=6856685cef268de0b398ec5f";
+  "https://dev.ignitetax-ai";
 
 const HighlightedText = ({ children }: { children: React.ReactNode }) => (
   <span className="text-[#2B7FFF] font-semibold">{children}</span>

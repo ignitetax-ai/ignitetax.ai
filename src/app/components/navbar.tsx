@@ -12,7 +12,7 @@ const NAV_LINKS = [
 ] as const;
 
 const APP_URL =
-  "https://app--taxai-pro-b398ec5f.base44.app/login?from_url=https://app--taxai-pro-b398ec5f.base44.app/&app_id=6856685cef268de0b398ec5f";
+  "https://dev.ignitetax.ai";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
