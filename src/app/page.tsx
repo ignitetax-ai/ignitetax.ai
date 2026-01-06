@@ -1,10 +1,11 @@
-import AboutUs from "./about/AboutUs";
-import Home from "./components/Home";
-import Product from "./product/Product";
-import Resources from "./resources/Resoruces";
+"use client";
 
+import Home from "./components/home";
+import AboutUs from "./about/about-us";
+import Product from "./product/product";
+import Resources from "./resources/resources";
 
-export default function Hero() {
+export default function Page() {
   return (
     <>
       <div id="home">
@@ -20,5 +21,5 @@ export default function Hero() {
         <Resources />
       </div>
     </>
-  )
+  );
 }
