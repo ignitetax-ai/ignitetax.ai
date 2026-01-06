@@ -2,6 +2,7 @@
   "name": "ignite-tax-ai",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev && next export",
     "build": "next build",
@@ -12,7 +13,7 @@
     "@aws-sdk/client-ses": "^3.569.0",
     "@emailjs/browser": "^4.3.3",
     "@headlessui/react": "^2.0.3",
-    "@heroicons/react": "^2.1.3",
+    "@phosphor-icons/react": "^2.1.10",
     "@react-email/render": "^0.0.13",
     "next": "^14.2.3",
     "react": "^18.2.0",

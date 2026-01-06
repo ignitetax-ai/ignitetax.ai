@@ -1,24 +1,24 @@
 "use client";
 
-import AboutUsNew from "./about/AboutUs-new";
-import HomeNew from "./components/Home-new";
-import ProductNew from "./product/Product-new";
-import ResourcesNew from "./resources/Resources-new";
+import Home from "./components/home";
+import AboutUs from "./about/about-us";
+import Product from "./product/product";
+import Resources from "./resources/resources";
 
-export default function Hero() {
+export default function Page() {
   return (
     <>
       <div id="home">
-        <HomeNew />
+        <Home />
       </div>
       <div id="about_us">
-        <AboutUsNew />
+        <AboutUs />
       </div>
       <div id="product">
-        <ProductNew />
+        <Product />
       </div>
       <div id="resources">
-        <ResourcesNew />
+        <Resources />
       </div>
     </>
   );
