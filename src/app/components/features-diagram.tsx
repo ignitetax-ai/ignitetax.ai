@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { useDraggable } from "@neodrag/react";
 import {
   RobotIcon,
   SealCheckIcon,
@@ -42,12 +43,57 @@ const FEATURES = [
   },
 ] as const;
 
+const DraggableWrapper = ({
+  children,
+  className,
+  delay,
+}: {
+  children: React.ReactNode;
+  className: string;
+  delay: number;
+}) => {
+  const draggableRef = useRef<HTMLDivElement>(null);
+
+  useDraggable(draggableRef, {
+    applyUserSelectHack: true,
+    gpuAcceleration: false,
+    defaultPosition: { x: 0, y: 0 },
+    onDragEnd: () => {
+      // Smooth spring-back animation on drag end
+      if (draggableRef.current) {
+        draggableRef.current.style.transition =
+          "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        draggableRef.current.style.transform = "translate3d(0px, 0px, 0px)";
+
+        // Remove transition after animation completes
+        setTimeout(() => {
+          if (draggableRef.current) {
+            draggableRef.current.style.transition = "";
+          }
+        }, 600);
+      }
+    },
+  });
+
+  return (
+    <div
+      ref={draggableRef}
+      className={className}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
+
 const FeatureCard = ({
   feature,
   isVisible,
+  delay,
 }: {
   feature: (typeof FEATURES)[number];
   isVisible: boolean;
+  delay: number;
 }) => {
   const Icon = feature.icon;
 
@@ -56,6 +102,7 @@ const FeatureCard = ({
       className={`flex items-center gap-3 px-5 py-3 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl hover:border-[#2B7FFF]/50 transition-all duration-500 ${
         isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
       }`}
+      style={{ transitionDelay: `${delay}ms` }}
     >
       <div className="w-10 h-10 rounded-xl bg-[#2B7FFF] flex items-center justify-center flex-shrink-0">
         <Icon size={20} weight="fill" className="text-white" />
@@ -173,7 +220,7 @@ const FeaturesDiagram = () => {
       {/* Desktop Layout - Hidden on mobile */}
       <div className="hidden md:block relative" style={{ minHeight: "600px" }}>
         {/* Central Circle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
           <div
             className={`w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-br from-[#2B7FFF] to-blue-500 shadow-2xl flex flex-col items-center justify-center transition-all duration-700 ${
               isVisible ? "opacity-100 scale-100" : "opacity-0 scale-0"
@@ -188,54 +235,64 @@ const FeaturesDiagram = () => {
         </div>
 
         {/* Top Left - AI powered tax co-pilot */}
-        <div
-          className="absolute top-0 left-0 sm:left-8"
-          style={{
-            transitionDelay: "200ms",
-          }}
+        <DraggableWrapper
+          className="absolute top-0 left-0 sm:left-8 z-20 cursor-grab active:cursor-grabbing"
+          delay={200}
         >
-          <FeatureCard feature={FEATURES[0]} isVisible={isVisible} />
-        </div>
+          <FeatureCard
+            feature={FEATURES[0]}
+            isVisible={isVisible}
+            delay={200}
+          />
+        </DraggableWrapper>
 
         {/* Top Right - Vetted Sources */}
-        <div
-          className="absolute top-0 right-0 sm:right-8"
-          style={{
-            transitionDelay: "300ms",
-          }}
+        <DraggableWrapper
+          className="absolute top-0 right-0 sm:right-8 z-20 cursor-grab active:cursor-grabbing"
+          delay={300}
         >
-          <FeatureCard feature={FEATURES[1]} isVisible={isVisible} />
-        </div>
+          <FeatureCard
+            feature={FEATURES[1]}
+            isVisible={isVisible}
+            delay={300}
+          />
+        </DraggableWrapper>
 
         {/* Middle Left - Memo Composer */}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 left-0"
-          style={{
-            transitionDelay: "400ms",
-          }}
+        <DraggableWrapper
+          className="absolute top-1/2 -translate-y-1/2 left-0 z-20 cursor-grab active:cursor-grabbing"
+          delay={400}
         >
-          <FeatureCard feature={FEATURES[2]} isVisible={isVisible} />
-        </div>
+          <FeatureCard
+            feature={FEATURES[2]}
+            isVisible={isVisible}
+            delay={400}
+          />
+        </DraggableWrapper>
 
         {/* Middle Right - Document Analysis */}
-        <div
-          className="absolute top-1/2 -translate-y-1/2 right-0"
-          style={{
-            transitionDelay: "500ms",
-          }}
+        <DraggableWrapper
+          className="absolute top-1/2 -translate-y-1/2 right-0 z-20 cursor-grab active:cursor-grabbing"
+          delay={500}
         >
-          <FeatureCard feature={FEATURES[3]} isVisible={isVisible} />
-        </div>
+          <FeatureCard
+            feature={FEATURES[3]}
+            isVisible={isVisible}
+            delay={500}
+          />
+        </DraggableWrapper>
 
         {/* Bottom - Academe Tax Accelerator */}
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2"
-          style={{
-            transitionDelay: "600ms",
-          }}
+        <DraggableWrapper
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 cursor-grab active:cursor-grabbing"
+          delay={600}
         >
-          <FeatureCard feature={FEATURES[4]} isVisible={isVisible} />
-        </div>
+          <FeatureCard
+            feature={FEATURES[4]}
+            isVisible={isVisible}
+            delay={600}
+          />
+        </DraggableWrapper>
       </div>
 
       {/* Mobile Layout - Clean stacked list */}
@@ -257,14 +314,12 @@ const FeaturesDiagram = () => {
 
         {/* Features Stacked */}
         {FEATURES.map((feature, index) => (
-          <div
+          <FeatureCard
             key={feature.id}
-            style={{
-              transitionDelay: `${(index + 1) * 100}ms`,
-            }}
-          >
-            <FeatureCard feature={feature} isVisible={isVisible} />
-          </div>
+            feature={feature}
+            isVisible={isVisible}
+            delay={(index + 1) * 100}
+          />
         ))}
       </div>
     </div>
