@@ -15,31 +15,26 @@ const FEATURES = [
     id: "ai-copilot",
     title: "AI powered tax co-pilot",
     icon: RobotIcon,
-    position: "top-left" as const,
   },
   {
     id: "vetted-sources",
     title: "Vetted Sources",
     icon: SealCheckIcon,
-    position: "top-right" as const,
   },
   {
     id: "memo-composer",
     title: "Memo Composer",
     icon: FileTextIcon,
-    position: "middle-left" as const,
   },
   {
     id: "document-analysis",
     title: "Document Analysis",
     icon: FileMagnifyingGlassIcon,
-    position: "middle-right" as const,
   },
   {
     id: "tax-accelerator",
     title: "Academe Tax Accelerator",
     icon: GraduationCapIcon,
-    position: "bottom" as const,
   },
 ] as const;
 
@@ -47,39 +42,94 @@ const DraggableWrapper = ({
   children,
   className,
   delay,
+  onDrag,
+  cardRef,
+  onDragUpdate,
 }: {
   children: React.ReactNode;
   className: string;
   delay: number;
+  onDrag: (offsetX: number, offsetY: number) => void;
+  cardRef: React.RefObject<HTMLDivElement>;
+  onDragUpdate: () => void;
 }) => {
-  const draggableRef = useRef<HTMLDivElement>(null);
+  // Warm up GPU acceleration on mount to prevent first drag lag
+  useEffect(() => {
+    if (cardRef.current) {
+      // Force GPU layer creation immediately
+      const el = cardRef.current;
+      el.style.willChange = "transform";
+      el.style.transform = "translate3d(0, 0, 0)";
 
-  useDraggable(draggableRef, {
+      // Force a reflow to ensure GPU layer is created
+      void el.offsetHeight;
+
+      return () => {
+        el.style.willChange = "auto";
+      };
+    }
+  }, [cardRef]);
+
+  useDraggable(cardRef, {
     applyUserSelectHack: true,
     gpuAcceleration: false,
     defaultPosition: { x: 0, y: 0 },
+    onDrag: ({ offsetX, offsetY }) => {
+      onDrag(offsetX, offsetY);
+      onDragUpdate();
+    },
     onDragEnd: () => {
       // Smooth spring-back animation on drag end
-      if (draggableRef.current) {
-        draggableRef.current.style.transition =
+      if (cardRef.current) {
+        cardRef.current.style.willChange = "transform";
+        cardRef.current.style.transition =
           "transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)";
-        draggableRef.current.style.transform = "translate3d(0px, 0px, 0px)";
+        cardRef.current.style.transform = "translate3d(0px, 0px, 0px)";
 
-        // Remove transition after animation completes
+        // Reset position after animation
         setTimeout(() => {
-          if (draggableRef.current) {
-            draggableRef.current.style.transition = "";
+          if (cardRef.current) {
+            cardRef.current.style.transition = "";
+            cardRef.current.style.willChange = "auto";
+            onDrag(0, 0);
+            onDragUpdate();
           }
         }, 600);
       }
     },
   });
 
+  const handleMouseEnter = () => {
+    // Warm up on hover to eliminate first-drag lag
+    if (cardRef.current) {
+      cardRef.current.style.willChange = "transform";
+      // Force a tiny transform to wake up the GPU
+      cardRef.current.style.transform = "translate3d(0.001px, 0.001px, 0)";
+      requestAnimationFrame(() => {
+        if (cardRef.current) {
+          cardRef.current.style.transform = "translate3d(0, 0, 0)";
+        }
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    // Clean up will-change when not hovering
+    if (cardRef.current && !cardRef.current.style.transition) {
+      cardRef.current.style.willChange = "auto";
+    }
+  };
+
   return (
     <div
-      ref={draggableRef}
+      ref={cardRef}
       className={className}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{
+        transitionDelay: `${delay}ms`,
+        touchAction: "none",
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {children}
     </div>
@@ -117,6 +167,30 @@ const FeatureCard = ({
 const FeaturesDiagram = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Refs for each card
+  const card1Ref = useRef<HTMLDivElement>(null);
+  const card2Ref = useRef<HTMLDivElement>(null);
+  const card3Ref = useRef<HTMLDivElement>(null);
+  const card4Ref = useRef<HTMLDivElement>(null);
+  const card5Ref = useRef<HTMLDivElement>(null);
+
+  // State for card positions
+  const [card1Pos, setCard1Pos] = useState({ x: 0, y: 0 });
+  const [card2Pos, setCard2Pos] = useState({ x: 0, y: 0 });
+  const [card3Pos, setCard3Pos] = useState({ x: 0, y: 0 });
+  const [card4Pos, setCard4Pos] = useState({ x: 0, y: 0 });
+  const [card5Pos, setCard5Pos] = useState({ x: 0, y: 0 });
+
+  // State for line coordinates
+  const [lines, setLines] = useState({
+    line1: { x1: 20, y1: 20, x2: 50, y2: 50 },
+    line2: { x1: 80, y1: 20, x2: 50, y2: 50 },
+    line3: { x1: 10, y1: 50, x2: 50, y2: 50 },
+    line4: { x1: 90, y1: 50, x2: 50, y2: 50 },
+    line5: { x1: 50, y1: 80, x2: 50, y2: 50 },
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -140,6 +214,120 @@ const FeaturesDiagram = () => {
     };
   }, []);
 
+  // Calculate line positions based on card positions
+  const updateLines = useRef(() => {
+    if (!containerRef.current) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    if (containerRect.width === 0 || containerRect.height === 0) return;
+
+    const getCardEdge = (
+      cardRef: React.RefObject<HTMLDivElement>,
+      edge: "top" | "bottom" | "left" | "right",
+    ) => {
+      if (!cardRef.current) return null;
+      const rect = cardRef.current.getBoundingClientRect();
+      const containerRect = containerRef.current!.getBoundingClientRect();
+
+      let x, y;
+
+      // Calculate edge point based on which side faces the center
+      switch (edge) {
+        case "bottom":
+          x = rect.left - containerRect.left + rect.width / 2;
+          y = rect.bottom - containerRect.top;
+          break;
+        case "top":
+          x = rect.left - containerRect.left + rect.width / 2;
+          y = rect.top - containerRect.top;
+          break;
+        case "right":
+          x = rect.right - containerRect.left;
+          y = rect.top - containerRect.top + rect.height / 2;
+          break;
+        case "left":
+          x = rect.left - containerRect.left;
+          y = rect.top - containerRect.top + rect.height / 2;
+          break;
+      }
+
+      return { x, y };
+    };
+
+    // Get edge points facing the center
+    const card1Edge = getCardEdge(card1Ref, "bottom"); // Top left - bottom edge faces center
+    const card2Edge = getCardEdge(card2Ref, "bottom"); // Top right - bottom edge faces center
+    const card3Edge = getCardEdge(card3Ref, "right"); // Middle left - right edge faces center
+    const card4Edge = getCardEdge(card4Ref, "left"); // Middle right - left edge faces center
+    const card5Edge = getCardEdge(card5Ref, "top"); // Bottom - top edge faces center
+
+    // Only update if all cards are positioned
+    if (!card1Edge || !card2Edge || !card3Edge || !card4Edge || !card5Edge) {
+      return;
+    }
+
+    setLines({
+      line1: {
+        x1: (card1Edge.x / containerRect.width) * 100,
+        y1: (card1Edge.y / containerRect.height) * 100,
+        x2: 50,
+        y2: 50,
+      },
+      line2: {
+        x1: (card2Edge.x / containerRect.width) * 100,
+        y1: (card2Edge.y / containerRect.height) * 100,
+        x2: 50,
+        y2: 50,
+      },
+      line3: {
+        x1: (card3Edge.x / containerRect.width) * 100,
+        y1: (card3Edge.y / containerRect.height) * 100,
+        x2: 50,
+        y2: 50,
+      },
+      line4: {
+        x1: (card4Edge.x / containerRect.width) * 100,
+        y1: (card4Edge.y / containerRect.height) * 100,
+        x2: 50,
+        y2: 50,
+      },
+      line5: {
+        x1: (card5Edge.x / containerRect.width) * 100,
+        y1: (card5Edge.y / containerRect.height) * 100,
+        x2: 50,
+        y2: 50,
+      },
+    });
+  }).current;
+
+  // Update lines whenever card positions change (debounced for non-drag updates)
+  useEffect(() => {
+    updateLines();
+  }, [card1Pos, card2Pos, card3Pos, card4Pos, card5Pos, updateLines]);
+
+  // Initial line calculation with proper timing
+  useEffect(() => {
+    if (isVisible && containerRef.current) {
+      // Multiple attempts to ensure cards are positioned
+      const timeouts = [50, 150, 300];
+      const timers = timeouts.map((delay) => setTimeout(updateLines, delay));
+
+      // Add ResizeObserver to handle dynamic updates
+      const resizeObserver = new ResizeObserver(() => {
+        updateLines();
+      });
+
+      if (containerRef.current) {
+        resizeObserver.observe(containerRef.current);
+      }
+
+      return () => {
+        resizeObserver.disconnect();
+        timers.forEach(clearTimeout);
+      };
+    }
+  }, [isVisible, updateLines]);
+
   return (
     <div
       ref={sectionRef}
@@ -152,73 +340,82 @@ const FeaturesDiagram = () => {
       >
         {/* Top Left Line */}
         <line
-          x1="20%"
-          y1="20%"
-          x2="50%"
-          y2="50%"
+          x1={`${lines.line1.x1}%`}
+          y1={`${lines.line1.y1}%`}
+          x2={`${lines.line1.x2}%`}
+          y2={`${lines.line1.y2}%`}
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-slate-300 dark:text-slate-700 transition-all duration-1000 ${
+          className={`text-slate-300 dark:text-slate-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transition: "opacity 1s" }}
           strokeDasharray="5,5"
         />
         {/* Top Right Line */}
         <line
-          x1="80%"
-          y1="20%"
-          x2="50%"
-          y2="50%"
+          x1={`${lines.line2.x1}%`}
+          y1={`${lines.line2.y1}%`}
+          x2={`${lines.line2.x2}%`}
+          y2={`${lines.line2.y2}%`}
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-slate-300 dark:text-slate-700 transition-all duration-1000 ${
+          className={`text-slate-300 dark:text-slate-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transition: "opacity 1s" }}
           strokeDasharray="5,5"
         />
         {/* Middle Left Line */}
         <line
-          x1="10%"
-          y1="50%"
-          x2="50%"
-          y2="50%"
+          x1={`${lines.line3.x1}%`}
+          y1={`${lines.line3.y1}%`}
+          x2={`${lines.line3.x2}%`}
+          y2={`${lines.line3.y2}%`}
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-slate-300 dark:text-slate-700 transition-all duration-1000 ${
+          className={`text-slate-300 dark:text-slate-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transition: "opacity 1s" }}
           strokeDasharray="5,5"
         />
         {/* Middle Right Line */}
         <line
-          x1="90%"
-          y1="50%"
-          x2="50%"
-          y2="50%"
+          x1={`${lines.line4.x1}%`}
+          y1={`${lines.line4.y1}%`}
+          x2={`${lines.line4.x2}%`}
+          y2={`${lines.line4.y2}%`}
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-slate-300 dark:text-slate-700 transition-all duration-1000 ${
+          className={`text-slate-300 dark:text-slate-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transition: "opacity 1s" }}
           strokeDasharray="5,5"
         />
         {/* Bottom Line */}
         <line
-          x1="50%"
-          y1="80%"
-          x2="50%"
-          y2="50%"
+          x1={`${lines.line5.x1}%`}
+          y1={`${lines.line5.y1}%`}
+          x2={`${lines.line5.x2}%`}
+          y2={`${lines.line5.y2}%`}
           stroke="currentColor"
           strokeWidth="2"
-          className={`text-slate-300 dark:text-slate-700 transition-all duration-1000 ${
+          className={`text-slate-300 dark:text-slate-700 ${
             isVisible ? "opacity-100" : "opacity-0"
           }`}
+          style={{ transition: "opacity 1s" }}
           strokeDasharray="5,5"
         />
       </svg>
 
       {/* Desktop Layout - Hidden on mobile */}
-      <div className="hidden md:block relative" style={{ minHeight: "600px" }}>
+      <div
+        ref={containerRef}
+        className="hidden md:block relative"
+        style={{ minHeight: "600px", touchAction: "none" }}
+      >
         {/* Central Circle */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
           <div
@@ -227,7 +424,7 @@ const FeaturesDiagram = () => {
             }`}
           >
             <h3 className="text-white font-bold text-xl sm:text-2xl text-center px-6">
-              IgniteTax
+              IgniteTax AI
               <br />
               Co-Pilot
             </h3>
@@ -238,6 +435,9 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-0 left-0 sm:left-8 z-20 cursor-grab active:cursor-grabbing"
           delay={200}
+          onDrag={(x, y) => setCard1Pos({ x, y })}
+          cardRef={card1Ref}
+          onDragUpdate={updateLines}
         >
           <FeatureCard
             feature={FEATURES[0]}
@@ -250,6 +450,9 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-0 right-0 sm:right-8 z-20 cursor-grab active:cursor-grabbing"
           delay={300}
+          onDrag={(x, y) => setCard2Pos({ x, y })}
+          cardRef={card2Ref}
+          onDragUpdate={updateLines}
         >
           <FeatureCard
             feature={FEATURES[1]}
@@ -262,6 +465,9 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-1/2 -translate-y-1/2 left-0 z-20 cursor-grab active:cursor-grabbing"
           delay={400}
+          onDrag={(x, y) => setCard3Pos({ x, y })}
+          cardRef={card3Ref}
+          onDragUpdate={updateLines}
         >
           <FeatureCard
             feature={FEATURES[2]}
@@ -274,6 +480,9 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-1/2 -translate-y-1/2 right-0 z-20 cursor-grab active:cursor-grabbing"
           delay={500}
+          onDrag={(x, y) => setCard4Pos({ x, y })}
+          cardRef={card4Ref}
+          onDragUpdate={updateLines}
         >
           <FeatureCard
             feature={FEATURES[3]}
@@ -286,6 +495,9 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 cursor-grab active:cursor-grabbing"
           delay={600}
+          onDrag={(x, y) => setCard5Pos({ x, y })}
+          cardRef={card5Ref}
+          onDragUpdate={updateLines}
         >
           <FeatureCard
             feature={FEATURES[4]}
