@@ -13,6 +13,7 @@
     "@aws-sdk/client-ses": "^3.569.0",
     "@emailjs/browser": "^4.3.3",
     "@headlessui/react": "^2.0.3",
+    "@neodrag/react": "^2.3.1",
     "@phosphor-icons/react": "^2.1.10",
     "@react-email/render": "^0.0.13",
     "next": "^14.2.3",
