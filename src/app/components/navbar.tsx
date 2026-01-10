@@ -8,11 +8,11 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/#about_us", label: "About" },
   { href: "/#product", label: "Product" },
+  { href: "/#pricing", label: "Pricing" },
   { href: "/#resources", label: "Resources" },
 ] as const;
 
-const APP_URL =
-  "https://dev.ignitetax.ai";
+const APP_URL = "https://dev.ignitetax.ai";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
