@@ -109,7 +109,7 @@ const Navbar = () => {
               <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                 <Image
                   src="/logo/logo.png"
-                  alt=""
+                  alt="App Logo"
                   width={40}
                   height={40}
                   className="object-contain"
