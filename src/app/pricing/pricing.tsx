@@ -79,7 +79,7 @@ const PricingCard = ({
         className={`relative ${animationBase} ${visibleClass}`}
         style={{ transitionDelay: `${delay}ms` }}
       >
-        <div className="relative bg-[#2B7FFF] rounded-3xl p-8 lg:p-10 shadow-2xl h-full flex flex-col transform lg:scale-105">
+        <div className="relative bg-[#2B7FFF] rounded-3xl p-8 lg:p-10 shadow-2xl h-full min-h-[580px] flex flex-col">
           {/* Most Popular Badge */}
           <div className="absolute -top-3 -right-3 z-10">
             <div className="bg-gradient-to-r from-blue-400 to-blue-300 text-slate-900 px-5 py-2 rounded-full text-xs font-bold shadow-lg">
@@ -140,7 +140,7 @@ const PricingCard = ({
       className={`${animationBase} ${visibleClass}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-8 lg:p-10 shadow-lg hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-3xl p-8 lg:p-10 shadow-lg hover:shadow-xl transition-all duration-300 h-full min-h-[580px] flex flex-col">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-3">
@@ -279,7 +279,7 @@ const Pricing = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-6 max-w-6xl mx-auto items-start">
           {PRICING_PLANS.map((plan, index) => (
             <PricingCard
               key={plan.name}
