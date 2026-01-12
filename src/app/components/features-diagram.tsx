@@ -70,15 +70,44 @@ const DraggableWrapper = ({
     }
   }, [cardRef]);
 
+  const rafId = useRef<number | null>(null);
+
+  const scheduleDragUpdate = (x: number, y: number) => {
+    if (rafId.current !== null) {
+      cancelAnimationFrame(rafId.current);
+    }
+    rafId.current = requestAnimationFrame(() => {
+      onDrag(x, y);
+      onDragUpdate();
+    });
+  };
+
+  useEffect(
+    () => () => {
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+      }
+    },
+    [],
+  );
+
   useDraggable(cardRef, {
     applyUserSelectHack: true,
-    gpuAcceleration: false,
+    gpuAcceleration: true,
     defaultPosition: { x: 0, y: 0 },
+    onDragStart: () => {
+      if (cardRef.current) {
+        cardRef.current.style.transition = "";
+        cardRef.current.style.willChange = "transform";
+      }
+    },
     onDrag: ({ offsetX, offsetY }) => {
-      onDrag(offsetX, offsetY);
-      onDragUpdate();
+      scheduleDragUpdate(offsetX, offsetY);
     },
     onDragEnd: () => {
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+      }
       // Smooth spring-back animation on drag end
       if (cardRef.current) {
         cardRef.current.style.willChange = "transform";
@@ -120,14 +149,23 @@ const DraggableWrapper = ({
     }
   };
 
+  const primeWillChange = () => {
+    if (cardRef.current) {
+      cardRef.current.style.transition = "";
+      cardRef.current.style.willChange = "transform";
+    }
+  };
+
   return (
     <div
       ref={cardRef}
-      className={className}
+      className={`${className} will-change-transform transform-gpu`}
       style={{
         transitionDelay: `${delay}ms`,
         touchAction: "none",
       }}
+      onMouseDown={primeWillChange}
+      onTouchStart={primeWillChange}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -176,13 +214,6 @@ const FeaturesDiagram = () => {
   const card4Ref = useRef<HTMLDivElement>(null);
   const card5Ref = useRef<HTMLDivElement>(null);
 
-  // State for card positions
-  const [card1Pos, setCard1Pos] = useState({ x: 0, y: 0 });
-  const [card2Pos, setCard2Pos] = useState({ x: 0, y: 0 });
-  const [card3Pos, setCard3Pos] = useState({ x: 0, y: 0 });
-  const [card4Pos, setCard4Pos] = useState({ x: 0, y: 0 });
-  const [card5Pos, setCard5Pos] = useState({ x: 0, y: 0 });
-
   // State for line coordinates
   const [lines, setLines] = useState({
     line1: { x1: 20, y1: 20, x2: 50, y2: 50 },
@@ -191,6 +222,7 @@ const FeaturesDiagram = () => {
     line4: { x1: 90, y1: 50, x2: 50, y2: 50 },
     line5: { x1: 50, y1: 80, x2: 50, y2: 50 },
   });
+  const initialAlignRaf = useRef<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -303,7 +335,32 @@ const FeaturesDiagram = () => {
   // Update lines whenever card positions change (debounced for non-drag updates)
   useEffect(() => {
     updateLines();
-  }, [card1Pos, card2Pos, card3Pos, card4Pos, card5Pos, updateLines]);
+  }, [updateLines]);
+
+  // Run an rAF loop on initial reveal to align lines before first interaction
+  useEffect(() => {
+    if (!isVisible || !containerRef.current) return;
+
+    let frames = 0;
+    const step = () => {
+      updateLines();
+      frames += 1;
+      if (frames < 8) {
+        initialAlignRaf.current = requestAnimationFrame(step);
+      } else {
+        initialAlignRaf.current = null;
+      }
+    };
+
+    initialAlignRaf.current = requestAnimationFrame(step);
+
+    return () => {
+      if (initialAlignRaf.current !== null) {
+        cancelAnimationFrame(initialAlignRaf.current);
+        initialAlignRaf.current = null;
+      }
+    };
+  }, [isVisible, updateLines]);
 
   // Initial line calculation with proper timing
   useEffect(() => {
@@ -435,7 +492,7 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-0 left-0 sm:left-8 z-20 cursor-grab active:cursor-grabbing"
           delay={200}
-          onDrag={(x, y) => setCard1Pos({ x, y })}
+          onDrag={() => {}}
           cardRef={card1Ref}
           onDragUpdate={updateLines}
         >
@@ -450,7 +507,7 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-0 right-0 sm:right-8 z-20 cursor-grab active:cursor-grabbing"
           delay={300}
-          onDrag={(x, y) => setCard2Pos({ x, y })}
+          onDrag={() => {}}
           cardRef={card2Ref}
           onDragUpdate={updateLines}
         >
@@ -465,7 +522,7 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-1/2 -translate-y-1/2 left-0 z-20 cursor-grab active:cursor-grabbing"
           delay={400}
-          onDrag={(x, y) => setCard3Pos({ x, y })}
+          onDrag={() => {}}
           cardRef={card3Ref}
           onDragUpdate={updateLines}
         >
@@ -480,7 +537,7 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute top-1/2 -translate-y-1/2 right-0 z-20 cursor-grab active:cursor-grabbing"
           delay={500}
-          onDrag={(x, y) => setCard4Pos({ x, y })}
+          onDrag={() => {}}
           cardRef={card4Ref}
           onDragUpdate={updateLines}
         >
@@ -495,7 +552,7 @@ const FeaturesDiagram = () => {
         <DraggableWrapper
           className="absolute bottom-0 left-1/2 -translate-x-1/2 z-20 cursor-grab active:cursor-grabbing"
           delay={600}
-          onDrag={(x, y) => setCard5Pos({ x, y })}
+          onDrag={() => {}}
           cardRef={card5Ref}
           onDragUpdate={updateLines}
         >
