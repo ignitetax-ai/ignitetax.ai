@@ -124,12 +124,15 @@ const PricingCard = ({
           </ul>
 
           {/* Button */}
-          <button
-            className="w-full py-4 px-6 rounded-xl font-semibold text-[#2B7FFF] bg-white hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+          <a
+            href="https://dev.ignitetax.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-4 px-6 rounded-xl font-semibold text-[#2B7FFF] bg-white hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-center inline-block"
             aria-label={`Choose ${plan.name} plan`}
           >
             {plan.buttonText}
-          </button>
+          </a>
         </div>
       </div>
     );
@@ -185,12 +188,15 @@ const PricingCard = ({
         </ul>
 
         {/* Button */}
-        <button
-          className="w-full py-4 px-6 rounded-xl font-semibold text-white bg-[#2B7FFF] hover:bg-[#1a6fe6] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+        <a
+          href="https://dev.ignitetax.ai/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full py-4 px-6 rounded-xl font-semibold text-white bg-[#2B7FFF] hover:bg-[#1a6fe6] transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 text-center inline-block"
           aria-label={`Choose ${plan.name} plan`}
         >
           {plan.buttonText}
-        </button>
+        </a>
       </div>
     </div>
   );
