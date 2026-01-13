@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, ElementType } from "react";
+import Image from "next/image";
 import {
   NewspaperIcon,
   ArticleIcon,
@@ -9,6 +10,7 @@ import {
   UserIcon,
   EnvelopeSimpleIcon,
   ArrowRightIcon,
+  SparkleIcon,
 } from "@phosphor-icons/react";
 
 const RESOURCES: {
@@ -65,6 +67,7 @@ const TESTIMONIALS = [
 const FEATURED_IN = [
   {
     name: "BitPinas",
+    logo: "/bitpinas-logo.png",
   },
 ] as const;
 
@@ -255,25 +258,47 @@ const Resources = () => {
           </div>
         </div>
 
-        {/* As Seen In */}
+        {/* As Seen On */}
         <div
-          className={`text-center mb-20 ${animationBase} ${visibleClass}`}
+          className={`mb-20 ${animationBase} ${visibleClass}`}
           style={{ transitionDelay: "500ms" }}
         >
-          <p className="text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-6">
-            As Seen In
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-6">
-            {FEATURED_IN.map((featured, index) => (
-              <div
-                key={index}
-                className="px-8 py-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/50"
-              >
-                <span className="text-lg font-bold text-slate-600 dark:text-slate-400">
-                  {featured.name}
-                </span>
-              </div>
-            ))}
+          <div className="flex flex-col items-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 mb-8">
+              <SparkleIcon
+                size={16}
+                weight="fill"
+                className="text-[#2B7FFF] dark:text-blue-400"
+              />
+              <span className="text-[#2B7FFF] dark:text-blue-400 font-semibold text-sm uppercase tracking-wider">
+                As Seen On
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-700 dark:text-slate-300 mb-12 text-center max-w-3xl">
+              IgniteTaxAI has been recognized by industry leaders and media
+              outlets
+            </h3>
+
+            {/* Logo Cards */}
+            <div className="flex flex-wrap justify-center items-center gap-6">
+              {FEATURED_IN.map((featured, index) => (
+                <div
+                  key={index}
+                  className="group w-32 h-32 sm:w-40 sm:h-40 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-[#2B7FFF]/50 transition-all duration-300 flex items-center justify-center p-6 shadow-sm hover:shadow-lg"
+                >
+                  <Image
+                    src={featured.logo}
+                    alt={`${featured.name} logo`}
+                    width={120}
+                    height={120}
+                    className="object-contain w-full h-full group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

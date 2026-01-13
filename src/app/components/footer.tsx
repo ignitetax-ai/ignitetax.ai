@@ -221,24 +221,24 @@ const Footer = () => {
               >
                 •
               </span>
-              <a
+              <Link
                 href="/terms"
                 className="text-slate-600 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-200"
               >
                 Terms
-              </a>
+              </Link>
               <span
                 className="text-slate-400 dark:text-slate-600"
                 aria-hidden="true"
               >
                 •
               </span>
-              <a
+              <Link
                 href="/privacy"
                 className="text-slate-600 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-200"
               >
                 Privacy
-              </a>
+              </Link>
             </nav>
           </div>
         </div>
