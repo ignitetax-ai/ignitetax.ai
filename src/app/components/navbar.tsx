@@ -8,11 +8,11 @@ import Link from "next/link";
 const NAV_LINKS = [
   { href: "/#about_us", label: "About" },
   { href: "/#product", label: "Product" },
+  { href: "/#pricing", label: "Pricing" },
   { href: "/#resources", label: "Resources" },
 ] as const;
 
-const APP_URL =
-  "https://dev.ignitetax.ai";
+const APP_URL = "https://dev.ignitetax.ai";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -109,7 +109,7 @@ const Navbar = () => {
               <div className="relative w-10 h-10 rounded-xl overflow-hidden">
                 <Image
                   src="/logo/logo.png"
-                  alt=""
+                  alt="App Logo"
                   width={40}
                   height={40}
                   className="object-contain"

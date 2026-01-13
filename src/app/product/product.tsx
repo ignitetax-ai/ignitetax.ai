@@ -18,6 +18,7 @@ import {
   FileTextIcon,
   ArrowRightIcon,
 } from "@phosphor-icons/react";
+import FeaturesDiagram from "../components/features-diagram";
 
 const PRODUCTS = [
   {
@@ -70,8 +71,7 @@ const FEATURES: { icon: ElementType; title: string }[] = [
   { icon: FileTextIcon, title: "Analyze Documents" },
 ];
 
-const APP_URL =
-  "https://dev.ignitetax.ai";
+const APP_URL = "https://dev.ignitetax.ai";
 
 const Product = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -133,10 +133,18 @@ const Product = () => {
           </p>
         </div>
 
+        {/* Features Diagram */}
+        <div
+          className={`mb-20 ${animationBase} ${visibleClass}`}
+          style={{ transitionDelay: "150ms" }}
+        >
+          <FeaturesDiagram />
+        </div>
+
         {/* Bento Grid Layout */}
         <div
           className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-20 ${animationBase} ${visibleClass}`}
-          style={{ transitionDelay: "150ms" }}
+          style={{ transitionDelay: "200ms" }}
         >
           {/* Featured Product - Large Card */}
           <div className="md:col-span-2 lg:col-span-2 lg:row-span-2 group">
@@ -213,7 +221,7 @@ const Product = () => {
         {/* Features - Horizontal Scroll / Grid */}
         <div
           className={`${animationBase} ${visibleClass}`}
-          style={{ transitionDelay: "300ms" }}
+          style={{ transitionDelay: "350ms" }}
         >
           <div className="text-center mb-10">
             <h3 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-slate-100 mb-3">
@@ -252,7 +260,7 @@ const Product = () => {
         {/* CTA Section */}
         <div
           className={`mt-16 text-center ${animationBase} ${visibleClass}`}
-          style={{ transitionDelay: "450ms" }}
+          style={{ transitionDelay: "500ms" }}
         >
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 p-6 lg:p-8 rounded-2xl bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-800 dark:to-slate-800/50 border border-slate-200 dark:border-slate-700">
             <p className="text-lg font-medium text-slate-700 dark:text-slate-300">

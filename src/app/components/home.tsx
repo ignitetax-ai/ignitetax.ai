@@ -19,8 +19,7 @@ const FEATURE_PILLS = [
   { icon: BooksIcon, text: "Vetted Sources" },
 ] as const;
 
-const APP_URL =
-  "https://dev.ignitetax-ai";
+const APP_URL = "https://dev.ignitetax-ai";
 
 const HighlightedText = ({ children }: { children: React.ReactNode }) => (
   <span className="text-[#2B7FFF] font-semibold">{children}</span>
@@ -33,7 +32,7 @@ const Home = () => {
     setMounted(true);
   }, []);
 
-  const getAnimationClass = (delay: number) =>
+  const getAnimationClass = () =>
     `transition-all duration-700 ${
       mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
     }`;
@@ -44,11 +43,11 @@ const Home = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#F5F7FA] dark:bg-slate-900"
       aria-labelledby="home-heading"
     >
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="flex flex-col items-center text-center space-y-8">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-32">
+        <div className="flex flex-col items-center text-center space-y-8 mb-20">
           {/* Logo Section */}
           <div
-            className={getAnimationClass(0)}
+            className={getAnimationClass()}
             style={{ transitionDelay: "0ms" }}
           >
             <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto mb-6">
@@ -66,7 +65,7 @@ const Home = () => {
 
           {/* Main Heading */}
           <div
-            className={getAnimationClass(100)}
+            className={getAnimationClass()}
             style={{ transitionDelay: "100ms" }}
           >
             <h1
@@ -83,7 +82,7 @@ const Home = () => {
 
           {/* Subtitle */}
           <div
-            className={getAnimationClass(200)}
+            className={getAnimationClass()}
             style={{ transitionDelay: "200ms" }}
           >
             <p className="text-lg sm:text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-medium max-w-4xl leading-relaxed px-4">
@@ -98,7 +97,7 @@ const Home = () => {
 
           {/* Description */}
           <div
-            className={getAnimationClass(300)}
+            className={getAnimationClass()}
             style={{ transitionDelay: "300ms" }}
           >
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl px-4">
@@ -109,7 +108,7 @@ const Home = () => {
 
           {/* CTA Buttons */}
           <div
-            className={`flex flex-col sm:flex-row gap-4 ${getAnimationClass(400)}`}
+            className={`flex flex-col sm:flex-row gap-4 ${getAnimationClass()}`}
             style={{ transitionDelay: "400ms" }}
           >
             <a
@@ -131,7 +130,7 @@ const Home = () => {
 
           {/* Feature Pills */}
           <div
-            className={`flex flex-wrap justify-center gap-3 pt-8 ${getAnimationClass(500)}`}
+            className={`flex flex-wrap justify-center gap-3 pt-8 ${getAnimationClass()}`}
             style={{ transitionDelay: "500ms" }}
           >
             {FEATURE_PILLS.map((feature, index) => (
@@ -142,14 +141,40 @@ const Home = () => {
               />
             ))}
           </div>
+
+          {/* Chat Interface Preview */}
+          <div
+            className={`w-full max-w-5xl mt-16 ${getAnimationClass()}`}
+            style={{ transitionDelay: "600ms" }}
+            role="region"
+            aria-label="Application preview"
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+              <div className="relative w-full aspect-[16/10]">
+                <Image
+                  src="/preview.png"
+                  alt="TaxAI Chat Interface showing real-time tax assistance conversation with comprehensive Philippine tax guidance for practitioners, displaying chat history and AI-powered responses"
+                  fill
+                  className="object-cover object-top"
+                  priority
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1400px"
+                />
+              </div>
+              {/* Overlay gradient for better visual appeal */}
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-slate-900/10 via-transparent to-transparent pointer-events-none"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+      <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center animate-bounce">
         <a
           href="#about_us"
-          className="flex flex-col items-center space-y-2 text-slate-500 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-300"
+          className="flex flex-col items-center space-y-2 text-slate-500 dark:text-slate-400 hover:text-[#2B7FFF] transition-colors duration-300 cursor-pointer"
           aria-label="Scroll to about section"
         >
           <span className="text-xs sm:text-sm font-medium uppercase tracking-wider">
